@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Nusayba</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #fff1eb, #ace0f9);
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1 {
+      font-family: 'great vibes', cursive;
+      font-size: 3.8em;
+      margin-top: 60px;
+      color: #d14a7b;
+      z-index: 1;
+      position: relative;
+      text-shadow: 2px 2px 8px #fff;
+    }
+
+    .letter-box {
+      max-width: 90%;
+      width: 720px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 35px;
+      margin: 50px auto;
+      font-size: 1.4em;
+      font-family: 'almairah script', cursive;
+      color: #4d3e4c;
+      line-height: 1.9;
+      box-shadow: 0 0 25px rgba(255, 182, 193, 0.4);
+      background-image: linear-gradient(to bottom right, rgba(255,255,255,0.3), rgba(255,240,250,0.4)), url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      background-size: cover;
+      background-blend-mode: lighten;
+    }
+
+    .quote {
+      font-style: italic;
+      margin-top: 25px;
+      color: #6b4b63;
+    }
+
+    .sign-off {
+      margin-top: 35px;
+      font-size: 0.95em;
+      color: #7a5c6e;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5em;
+      }
+
+      .letter-box {
+        font-size: 1.15em;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday Nusayba</h1>
+
+  <canvas class="fireworks"></canvas>
+
+  <div class="letter-box">
+    I may not be someone important in your life,<br>
+    but you’ve unknowingly become a big part of mine.<br><br>
+    I don’t expect anything… just hoping life treats you kindly, like you deserve.<br><br>
+    So today, from a quiet distance, I’m sending all my best wishes.<br>
+    May your journey ahead be full of light, laughter, and love.<br><br>
+
+    <div class="quote">
+      "You are the light I chase,<br>
+      A flame in my secret place,<br>
+      Where silence holds your name,<br>
+      And every thought burns like a flame."
+    </div>
+
+    <div class="sign-off">
+      — Always cheering for you<br>
+      Yours,<br>
+      Not truly yours
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.querySelector('.fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createParticle(x, y) {
+      const colors = ['#ffb6c1', '#ffe4e1', '#f8c3df', '#ffd1dc', '#ffecf4'];
+      for (let i = 0; i < 30; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          speedX: random(-4, 4),
+          speedY: random(-4, 4),
+          radius: random(1, 3),
+          color: colors[Math.floor(Math.random() * colors.length)],
+          life: 100
+        });
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+      createParticle(e.clientX, e.clientY);
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(() => {
+      createParticle(random(100, canvas.width - 100), random(100, canvas.height - 100));
+    }, 1000);
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
